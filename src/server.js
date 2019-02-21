@@ -18,4 +18,3 @@ const server = http.createServer(app);
 server.on("listening", () => {
 console.log(`server is listening for requests on port ${server.address().port}`);
    });
-});
