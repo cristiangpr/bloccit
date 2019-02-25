@@ -19,6 +19,7 @@ module.exports = {
   new(req, res, next){
     res.render("topics/new");
   },
+
   create(req, res, next){
     let newTopic = {
       title: req.body.title,
@@ -31,5 +32,18 @@ module.exports = {
         res.redirect(303, `/topics/${topic.id}`);
       }
     });
-  }
+  },
+  show(req, res, next){
+
+//#1
+     topicQueries.getTopic(req.params.id, (err, topic) => {
+
+//#2
+       if(err || topic == null){
+         res.redirect(404, "/");
+       } else {
+         res.render("topics/show", {topic});
+       }
+     });
+   }
 }
