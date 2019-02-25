@@ -9,5 +9,6 @@ router.get("/topics/:id", topicController.show);
 router.post("/topics/create", topicController.create);
 router.post("/topics/:id/destroy", topicController.destroy);
 router.get("/topics/:id/edit", topicController.edit);
+router.post("/topics/:id/update", topicController.update);
 
 module.exports = router;
