@@ -35,5 +35,16 @@ module.exports = {
      .catch((err) => {
        callback(err);
      })
-   }
+   },
+   deleteTopic(id, callback){
+   return Topic.destroy({
+     where: {id}
+   })
+   .then((topic) => {
+     callback(null, topic);
+   })
+   .catch((err) => {
+     callback(err);
+   })
+ }
 }

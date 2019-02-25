@@ -94,4 +94,33 @@ describe("POST /topics/create", () => {
      });
 
    });
+
+   describe("POST /topics/:id/destroy", () => {
+
+  it("should delete the topic with the associated ID", (done) => {
+
+//#1
+    Topic.all()
+    .then((topics) => {
+
+//#2
+      const topicCountBeforeDelete = topics.length;
+
+      expect(topicCountBeforeDelete).toBe(1);
+
+//#3
+      request.post(`${base}${this.topic.id}/destroy`, (err, res, body) => {
+        Topic.all()
+        .then((topics) => {
+          expect(err).toBeNull();
+          expect(topics.length).toBe(topicCountBeforeDelete - 1);
+          done();
+        })
+
+      });
+    });
+
+  });
+
+});
 });
