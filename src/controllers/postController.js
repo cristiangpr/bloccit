@@ -17,6 +17,15 @@ module.exports = {
       }
     });
   },
+  show(req, res, next){
+   postQueries.getPost(req.params.id, (err, post) => {
+     if(err || post == null){
+       res.redirect(404, "/");
+     } else {
+       res.render("posts/show", {post});
+     }
+   });
+ },
   edit(req, res, next){
    postQueries.getPost(req.params.id, (err, post) => {
      if(err || post == null){
@@ -25,5 +34,14 @@ module.exports = {
        res.render("posts/edit", {post});
      }
    });
- }
+ },
+ destroy(req, res, next){
+     postQueries.deletePost(req.params.id, (err, deletedRecordsCount) => {
+       if(err){
+         res.redirect(500, `/topics/${req.params.topicId}/posts/${req.params.id}`)
+       } else {
+         res.redirect(303, `/topics/${req.params.topicId}`)
+       }
+     });
+   }
 }
