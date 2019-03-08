@@ -2,6 +2,7 @@ const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topic;
 const Post = require("../../src/db/models").Post;
 const Flair = require("../../src/db/models").Flair;
+const User = require("../../src/db/models").User;
 
 describe("Flair", () => {
 
@@ -9,24 +10,37 @@ describe("Flair", () => {
     this.topic;
     this.post;
     this.flair;
+    this.user;
 
     sequelize.sync({force: true}).then((res) => {
 
-      Topic.create({
-        title: "Expeditions to Alpha Centauri",
-        description: "A compilation of resports from recent visits to the star system."
+      User.create({
+        email: "starman@tesla.com",
+        password: "Trekkie4lyfe"
       })
-      .then((topic) => {
-        this.topic = topic;
+      .then((user) => {
+        this.user = user; //store the user
 
-        Post.create({
-          title: "My first visit to Proxima Centauri b",
-          body: "I saw some rocks.",
-          topicId: this.topic.id
-
+        Topic.create({
+          title: "Expeditions to Alpha Centauri",
+          description: "A compilation of reports from recent visits to the star system.",
+          posts: [{
+            title: "My first visit to Proxima Centauri b",
+            body: "I saw some rocks.",
+            userId: this.user.id
+          }]
+        }, {
+          include: {
+            model: Post,
+            as: "posts"
+          }
         })
-        .then((post) => {
-          this.post = post;
+        .then((topic) => {
+          this.topic = topic; //store the topic
+          this.post = topic.posts[0]; //store the post
+          done();
+
+
 
           Flair.create({
             name: "Buzz",
@@ -36,7 +50,7 @@ describe("Flair", () => {
           })
           .then((flair) => {
             this.flair = flair;
-            done();
+              done();
           });
         })
         .catch((err) => {
@@ -46,8 +60,9 @@ describe("Flair", () => {
       });
 
     });
+      });
 
-  });
+
 
   describe("#create()", () => {
 
@@ -76,7 +91,7 @@ describe("Flair", () => {
 
    describe("#setPost()", () => {
 
-     it("should associate a post and a flair together", (done) => {
+     it("should associate a post and a flair together", () => {
 
        Post.create({
          title: "My first visit to Proxima Centauri b",
@@ -91,7 +106,7 @@ describe("Flair", () => {
          .then((flair) => {
 
            expect(flair.postId).toBe(newPost.id);
-           done();
+           
 
          });
        })
