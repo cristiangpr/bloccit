@@ -4,7 +4,7 @@ module.exports = class PostPolicy extends ApplicationPolicy {
 
  // #2
   new() {
-    return this._isAdmin() || this._isMember();
+    return (this._isAdmin() || this.user != null);
   }
 
   create() {
@@ -13,7 +13,7 @@ module.exports = class PostPolicy extends ApplicationPolicy {
 
  // #3
   edit() {
-    return this._isAdmin() || this._isOwner();
+    return (this._isAdmin() || this._isOwner());
   }
 
   update() {

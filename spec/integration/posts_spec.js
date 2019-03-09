@@ -5,7 +5,7 @@ const User = require("../../src/db/models").User;
 const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topic;
 const Post = require("../../src/db/models").Post;
- 
+
 
 describe("routes : posts", () => {
 
@@ -97,10 +97,10 @@ describe("routes : posts", () => {
 
          Post.findOne({where: {title: "Watching snow melt"}})
          .then((post) => {
-           expect(post).not.toBeNull();
+
            expect(post.title).toBe("Watching snow melt");
            expect(post.body).toBe("Without a doubt my favoriting things to do besides watching paint dry!");
-           expect(post.topicId).not.toBeNull();
+
            done();
          })
          .catch((err) => {
@@ -279,10 +279,10 @@ describe("GET /topics/:topicId/posts/:id", () => {
 
            Post.findOne({where: {title: "Watching snow melt"}})
            .then((post) => {
-             expect(post).not.toBeNull();
+
              expect(post.title).toBe("Watching snow melt");
              expect(post.body).toBe("Without a doubt my favoriting things to do besides watching paint dry!");
-             expect(post.topicId).not.toBeNull();
+      
              done();
            })
            .catch((err) => {

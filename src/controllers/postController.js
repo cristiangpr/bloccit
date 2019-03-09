@@ -72,7 +72,7 @@ module.exports = {
    // #1
        postQueries.deletePost(req, (err, post) => {
          if(err){
-           res.redirect(err, `/posts/${req.params.id}`)
+           res.redirect(typeof err === "number" ? err : 500, `/posts/${req.params.id}`)
          } else {
            res.redirect(303, "/posts")
          }
