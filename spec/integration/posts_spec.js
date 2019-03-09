@@ -171,7 +171,7 @@ describe("routes : posts", () => {
             request.get({ // mock authentication
                 url: "http://localhost:3000/auth/fake",
                 form: {
-                    role: "member", // mock authenticate as admin user
+                    role: "member", 
                     userId: 1,
                 }
             });
@@ -448,70 +448,5 @@ describe("routes : posts", () => {
 
     });
 
-    // TESTS FOR VOTING
-    describe("Authorization for testing", () => {
 
-        beforeEach((done) => { // before each suite in admin context
-            request.get({ // mock authentication
-                url: "http://localhost:3000/auth/fake",
-                form: {
-                    role: "admin",
-                    userId: 1,
-                }
-            });
-            done();
-
-
-            describe("GET /topics/:topicId/posts/:id", () => {
-
-                it("should validate a down vote ", (done) => {
-                    Vote.create({
-                        value: -1,
-                        userId: this.user.id,
-                        postId: this.post.id
-                    })
-                })
-                expect(err).toBeNull();
-                Vote.findOne({
-                        where: {
-                            value: -1
-                        }
-                    })
-                    .then((post) => {
-                        expect(post).not.toBeNull();
-                        expect(post).value.toBe(-1)
-                        done();
-                    });
-
-            });
-            describe("GET /topics/:topicId/posts/:id", () => {
-
-                it("should validate an up vote ", (done) => {
-
-                    request.get(`${base}/${this.topic.id}/posts/${this.post.id}`, (err, res, body) => {
-
-                        Vote.create({
-                            value: +1,
-                            userId: this.user.id,
-                            postId: this.post.id
-
-                        })
-
-                        expect(err).toBeNull();
-
-                        Post.getPoints()
-
-                            .then((post) => {
-                                expect(post).toBeGreaterThan(0);
-
-
-                                done();
-                            });
-
-                    });
-
-                });
-            });
-        })
-    });
 });

@@ -65,6 +65,134 @@ describe("Vote", () => {
     });
   });
 
-  //suits will begin here
+  describe("#create()", () => {
+
+  // #2
+      it("should create an upvote on a post for a user", (done) => {
+
+  // #3
+        Vote.create({
+          value: 1,
+          postId: this.post.id,
+          userId: this.user.id
+        })
+        .then((vote) => {
+
+  // #4
+          expect(vote.value).toBe(1);
+          expect(vote.postId).toBe(this.post.id);
+          expect(vote.userId).toBe(this.user.id);
+          done();
+
+        })
+        .catch((err) => {
+          console.log(err);
+          done();
+        });
+      });
+
+  // #5
+      it("should create a downvote on a post for a user", (done) => {
+        Vote.create({
+          value: -1,
+          postId: this.post.id,
+          userId: this.user.id
+        })
+        .then((vote) => {
+          expect(vote.value).toBe(-1);
+          expect(vote.postId).toBe(this.post.id);
+          expect(vote.userId).toBe(this.user.id);
+          done();
+
+        })
+        .catch((err) => {
+          console.log(err);
+          done();
+        });
+      });
+
+  // #6
+      it("should not create a vote without assigned post or user", (done) => {
+        Vote.create({
+          value: 1
+        })
+        .then((vote) => {
+
+         // the code in this block will not be evaluated since the validation error
+         // will skip it. Instead, we'll catch the error in the catch block below
+         // and set the expectations there
+
+          done();
+
+        })
+        .catch((err) => {
+
+          expect(err.message).toContain("Vote.userId cannot be null");
+          expect(err.message).toContain("Vote.postId cannot be null");
+          done();
+
+        })
+      });
+
+    });
+    describe("#setUser()", () => {
+
+     it("should associate a vote and a user together", (done) => {
+
+        Vote.create({           // create a vote on behalf of this.user
+          value: -1,
+          postId: this.post.id,
+          userId: this.user.id
+        })
+        .then((vote) => {
+          this.vote = vote;     // store it
+          expect(vote.userId).toBe(this.user.id); //confirm it was created for this.user
+
+          User.create({                 // create a new user
+            email: "bob@example.com",
+            password: "password"
+          })
+          .then((newUser) => {
+
+            this.vote.setUser(newUser)  // change the vote's user reference for newUser
+            .then((vote) => {
+
+              expect(vote.userId).toBe(newUser.id); //confirm it was updated
+              done();
+
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+            done();
+          });
+        })
+      });
+
+    });
+
+// #2
+    describe("#getUser()", () => {
+
+      it("should return the associated user", (done) => {
+        Vote.create({
+          value: 1,
+          userId: this.user.id,
+          postId: this.post.id
+        })
+        .then((vote) => {
+          vote.getUser()
+          .then((user) => {
+            expect(user.id).toBe(this.user.id); // ensure the right user is returned
+            done();
+          })
+        })
+        .catch((err) => {
+          console.log(err);
+          done();
+        });
+      });
+
+    });//suits will begin here
 
 });
