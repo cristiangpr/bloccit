@@ -4,7 +4,7 @@ module.exports = class PostPolicy extends ApplicationPolicy {
 
  // #2
   new() {
-    return (this._isAdmin() || this.user != null);
+    return (this._isAdmin() || this._isMember());
   }
 
   create() {
