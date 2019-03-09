@@ -47,5 +47,15 @@ userId: {
    as: "votes"
  });
   };
+  Post.prototype.getPoints = function(){
+
+ // #1
+     if(this.votes.length === 0) return 0
+
+ // #2
+     return this.votes
+       .map((v) => { return v.value })
+       .reduce((prev, next) => { return prev + next });
+   };
   return Post;
 };
