@@ -6,9 +6,11 @@ module.exports = {
     const postRoutes = require("../routes/posts");
     const flairRoutes = require("../routes/flairs");
      const userRoutes = require("../routes/users");
+     const commentRoutes = require("../routes/comments");
+
      if(process.env.NODE_ENV === "test") {
    const mockAuth = require("../../spec/support/mock-auth.js");
-   mockAuth.fakeIt(app);
+    mockAuth.fakeIt(app);
  }
 
     app.use(staticRoutes);
@@ -16,7 +18,8 @@ module.exports = {
     app.use(advertisementRoutes);
     app.use(postRoutes);
     app.use(flairRoutes);
-     app.use(userRoutes);
-     
+    app.use(userRoutes);
+    app.use(commentRoutes);
+
   }
 }

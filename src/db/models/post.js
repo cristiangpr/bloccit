@@ -38,6 +38,10 @@ userId: {
          foreignKey: "postId",
          as: "flair"
        });
+       Post.hasMany(models.Comment, {
+    foreignKey: "postId",
+    as: "comments"
+  });
   };
   return Post;
 };
