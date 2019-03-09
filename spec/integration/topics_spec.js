@@ -182,8 +182,8 @@ describe("routes : topics", () => {
 
     beforeEach((done) => {
       User.create({
-        email: "admin@example.com",
-        password: "123456",
+        email: "member@example.com",
+        password: "1234567",
         role: "member"
       })
       .then((user)  => {// before each suite in admin context
