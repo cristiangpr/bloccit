@@ -2,6 +2,7 @@ const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topic;
 const Post = require("../../src/db/models").Post;
 const User = require("../../src/db/models").User;
+const Vote = require("../../src/db/models").Vote;
 
 describe("Post", () => {
 
@@ -150,4 +151,33 @@ describe("Post", () => {
      });
 
    });
+   describe("#getPoints()", () => {
+
+     it("should return the points for associated post", (done) => {
+       Post.create({
+         title: "Pros of Cryosleep during the long journey",
+         body: "1. Not having to answer the 'are we there yet?' question.",
+         topicId: this.topic.id,
+         userId: this.user.id
+       })
+       .then((post) => {
+         this.post = post;
+
+       Vote.create({
+         value: 1,
+         postId: this.post.id,
+         userId: this.user.id
+       })
+       .then((vote)=>{
+          let points = this.post.getPoints()
+          expect(points).toBe(1)
+          done()
+        })
+        .catch((err)=>{
+          console.log(err)
+          done()
+        })
+      })
+    })
+});
 });
