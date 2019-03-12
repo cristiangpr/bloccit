@@ -58,5 +58,13 @@ userId: {
        .map((v) => { return v.value })
        .reduce((prev, next) => { return prev + next });
    };
+   Post.prototype.hasUpvoteFor = function(userId){
+  return this.getVotes({where: {userId, postId: this.id, value: 1}}).then(votes => votes.length > 0 ? true : false)
+
+};
+
+Post.prototype.hasDownvoteFor = function(userId){
+  return this.getVotes({where: {userId, postId: this.id, value: -1}}).then(votes => votes.length > 0 ? true: false)
+}
   return Post;
 };

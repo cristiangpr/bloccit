@@ -1,4 +1,3 @@
-// #1
 const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topic;
 const Post = require("../../src/db/models").Post;
@@ -218,46 +217,49 @@ describe("Vote", () => {
       });
 
     });//
-    describe("#hasUpvoteFor()", ()=>{
-    it("should return true if user has upvote", (done)=>{
-      Vote.create({
-        value: 1,
-        userId: this.user.id,
-        postId: this.post.id
-      })
-      .then((vote)=>{
-        vote.postId.hasUpvoteFor()
-        .then((associatedVote)=>{
-          expect(this.vote).toBe(true)
-          done()
-        })
-      })
-      .catch((err)=>{
-        console.log(err)
-        done()
-      })
-    })
-  })
+    describe("#hasUpvoteFor()", () => {
 
-  describe("#hasDownvoteFor()", ()=>{
-    it("should return true if user has downvote", (done)=>{
-      Vote.create({
-        value: -1,
-        userId: this.user.id,
-        postId: this.post.id
-      })
-      .then((vote)=>{
-        vote.postId.hasDownvoteFor()
-        .then((associatedVote)=>{
-          expect(this.vote).toBe(true)
-          done()
+      it("should determine if the user has already upvoted the post", (done) => {
+        Vote.create({
+          value: 1,
+          userId: this.user.id,
+          postId: this.post.id
         })
+        .then((vote) => {
+          this.post.hasUpvoteFor(this.user.id)
+          .then((res) => {
+            expect(res).toBe(true);
+            done();
+          })
+        })
+        .catch((err) => {
+          console.log(err);
+          done();
+        });
       })
-      .catch((err)=>{
-        console.log(err)
-        done()
+    });
+
+    describe("#hasDownvoteFor()", () => {
+
+      it("should determine if the user has already downvoted the post", (done) => {
+        Vote.create({
+          value: -1,
+          userId: this.user.id,
+          postId: this.post.id
+        })
+        .then((vote) => {
+          this.post.hasDownvoteFor(this.user.id)
+          .then((res) => {
+            expect(res).toBe(true);
+            done();
+          })
+        })
+        .catch((err) => {
+          console.log(err);
+          done();
+        });
       })
-    })
-  })
+    });
+
 
 });
