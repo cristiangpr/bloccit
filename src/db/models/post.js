@@ -69,6 +69,10 @@ userId: {
 
 Post.prototype.hasDownvoteFor = function(userId){
   return this.getVotes({where: {userId, postId: this.id, value: -1}}).then(votes => votes.length > 0 ? true: false)
-}
+};
+Post.prototype.getFavoriteFor = function(userId){
+   return this.favorites.find((favorite) => { return favorite.userId == userId });
+ };
+
   return Post;
 };
