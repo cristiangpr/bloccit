@@ -4,44 +4,49 @@
     <% include ../static/partials/head.ejs %>
   </head>
   <body>
+
     <% include ../static/partials/navbar.ejs %>
 
     <main class="container">
-          <% include ../static/partials/messages.ejs %>
-          <div style="display: flex; align-items:center;">
-               <% if(currentUser) { %>
-                 <% include ../votes/voting.ejs %>
-               <% } %>
-             <h1><%= post.title %></h1>
-          </div>
 
-      <a href="/topics/<%= post.topicId %>/posts/<%= post.id %>/edit" class="btn btn-warning">Edit</a>
+      <% include ../static/partials/messages.ejs %>
 
-        <form style="display:initial" action="/topics/<%= post.topicId %>/posts/<%= post.id %>/destroy" method="post">
-          <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
-        <% if(currentUser) { %>
-   <% include ../favorites/favoriting.ejs %>
- <% } %>
-      <p><%= post.body %></p>
-      <section id="comment-form">
+      <h1><%= `${user.email}'s profile` %></h1>
 
- <!-- #1 -->
-    <% if(currentUser) { %>
-      <% include ../comments/new.ejs %>
-    <% } %>
-   </section>
+      <hr>
 
- <!-- #2 -->
-   <section id="comment-list">
-    <% if(post.comments) { %>
-      <% post.comments.forEach((comment) => { %>
+      <h2> Latest Posts</h2>
 
- <!-- #3 -->
-        <%- include("../comments/show.ejs", {comment}) %>
-      <% }) %>
-    <% } %>
-   </section>
+      <ul class="list-unstyled">
+
+        <% if(posts) { %>
+          <% posts.forEach((post) => { %>
+            <li>
+              <a href="/topics/<%= post.topicId %>/posts/<%= post.id %>">
+                <%= post.title %>
+              </a>
+            </li>
+          <% }) %>
+        <% } %>
+      </ul>
+      <hr>
+
+      <h2> Latest Comments</h2>
+
+      <ul class="list-unstyled">
+
+        <% if(comments) { %>
+          <% comments.forEach((comment) => { %>
+            <li>
+              <span>Post: </span><a href="/topics/<%= comment.Post.topicId %>/posts/<%= comment.Post.id %>">
+                <%= comment.Post.title %>
+              </a>
+              <p>Comment: <%= comment.body %></p>
+            </li>
+            <hr>
+          <% }) %>
+        <% } %>
+      </ul>
     </main>
 
     <% include ../static/partials/baseScripts.ejs %>
