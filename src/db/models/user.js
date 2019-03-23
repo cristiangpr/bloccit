@@ -40,6 +40,9 @@ User.hasMany(models.Favorite, {
   User.prototype.isAdmin = function() {
     return this.role === "admin";
   };
+  User.prototype.isOwner = function(){
+    return  this.record.userId == this.user.id;
+  }
 
   return User;
 };
