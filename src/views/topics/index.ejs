@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <% include ../static/partials/head.ejs %>
+ <% include ../static/partials/head.ejs %>
   </head>
   <body>
-    <main class="container">
-      <% include ../static/partials/navbar.ejs %>
+
+    <header id="header">
+      <div class="container">
+
+   <% include ../static/partials/navbar.ejs %>
+    <% include ../static/partials/messages.ejs %>
+      </div>
+    </header><!-- #header -->
+      <!-- Page Content -->
+      <main class="container">
+        <% include ../static/partials/messages.ejs %>
 
       <h1>Topics</h1>
       <% if(currentUser && currentUser.isAdmin()) { %>

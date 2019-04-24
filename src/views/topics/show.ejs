@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <% include ../static/partials/head.ejs %>
+ <% include ../static/partials/head.ejs %>
   </head>
   <body>
-    <% include ../static/partials/navbar.ejs %>
+
+    <header id="header">
+      <div class="container">
+
+   <% include ../static/partials/navbar.ejs %>
+    <% include ../static/partials/messages.ejs %>
+      </div>
+    </header><!-- #header -->
 
     <main class="container">
       <h1><%= topic.title %></h1>
