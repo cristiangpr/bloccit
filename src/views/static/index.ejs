@@ -1,206 +1,49 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+  <head>
+ <% include ./partials/head.ejs %>
+  </head>
+  <body>
 
-<head>
-  <meta charset="utf-8">
-  <title>Selecao one page site template with bootstrap</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <!-- styles -->
-  <link href="css/bootstrap.css" rel="stylesheet">
-  <link href="css/bootstrap-responsive.css" rel="stylesheet">
-  <link href="css/prettyPhoto.css" rel="stylesheet">
-  <link href="font/stylesheet.css" rel="stylesheet">
-  <link href="css/animate.css" rel="stylesheet">
-  <link href="css/flexslider.css" rel="stylesheet">
-  <link rel="stylesheet" media="screen" href="css/sequencejs.css">
-  <link href="css/style.css" rel="stylesheet">
-  <link href="color/default.css" rel="stylesheet">
+      <!-- Navigation -->
+     <% include ./partials/navbar.ejs %>
 
-  <!-- Fav and touch icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
-  <link rel="shortcut icon" href="ico/favicon.ico">
+      <!-- Page Content -->
+      <main class="container">
+        <% include ../static/partials/messages.ejs %>
 
-  <!-- =======================================================
-    Theme Name: Selecao
-    Theme URL: https://bootstrapmade.com/selecao-bootstrap-template/
-    Author: BootstrapMade.com
-    Author URL: https://bootstrapmade.com
-  ======================================================= -->
-</head>
+        <!-- Jumbotron Header -->
+        <header class="jumbotron my-4">
+          <h1 class="display-3">Welcome to Bloccit</h1>
+          <p class="lead">An application for users to share information.</p>
+         <a href="/users/sign_up" class="btn btn-primary btn-lg">Sign up</a>
 
-<body>
-  <header>
+        </header>
 
-    <!-- start top -->
-    <div id="topnav" class="navbar navbar-fixed-top default">
-      <div class="navbar-inner">
-        <div class="container">
-          <div class="logo">
-            <a class="brand" href="/"><h1>Bloccit</h1></a>
-          </div>
-          <div class="navigation">
-            <nav>
-              <ul class="nav pull-right">
-                <li class="current"><a href="/topics">Topics</a></li>
+        <!-- Page Features -->
+        <section class="row text-center">
 
-                        <% if(currentUser) { %>
-                          <li class="nav-item">
-                     <a class="nav-link" href="/users/<%= currentUser.id %>">Profile</a>
-                   </li>
-                   <li class="nav-item">
-                     <a class="nav-link" href="/users/sign_out">Sign out</a>
-                   </li>
-                 <% } else { %>
-                 <!-- #2 -->
-                   <li class="nav-item">
-                     <a class="nav-link" href="/users/sign_up">Sign up</a>
-                   </li>
-                   <li class="nav-item">
-                     <a class="nav-link" href="/users/sign_in">Sign in</a>
-                   </li>
-                 <% }%>
-                  <ul class="dropdown-menu">
-                    <li><a href="components.html" class="external">Components</a></li>
-                    <li><a href="icons.html" class="external">Icons</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-    <!-- end top -->
-  </header>
+          <section class="col-lg-4">
+            <h4 class="card-title">Post</h4>
+            <p class="card-text">Share your thoughts about subjects that are important to you.</p>
+          </section>
 
-  <!-- section featured -->
+          <section class="col-lg-4">
+            <h4 class="card-title">Comment</h4>
+            <p class="card-text">Your opinion counts! But you have to make yourself heard first!</p>
+          </section>
 
-  <!-- end featured -->
+          <section class="col-lg-4">
+            <h4 class="card-title">Stay Informed</h4>
+            <p class="card-text">See the most active topics as well as trending subjects every day!</p>
+          </section>
 
-  <!-- Section about -->
-  <section id="welcome" class="section">
-    <div class="gray-shadow">
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="span12">
-          <div class="headline">
-            <h3><span>Welcome to Bloccit</span></h3>
-          </div>
-        </div>
-      </div>
-    </div>
+        </section>
+        <!-- /.row -->
 
-    <div class="container">
-      <div class="row">
-        <div class="span12">
-          <div class="section-intro">
-            <p>
-            An application for users to share information
-            </p>
-               <a href="/users/sign_up" class="btn btn-color">Sign up</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      </main>
+      <!-- /.container -->
 
-
-      <!-- Page Features -->
-      <section id="services" class="section parallax">
-        <div class="container">
-
-          <div class="row">
-            <div class="span4">
-              <div class="well box aligncenter">
-                <i class="icon-circled active icon-48 icon-edit"></i>
-                <h3>Post</h3>
-                <p>
-              Share your thoughts about subjects that are important to you.
-                </p>
-                <a href="#" class="btn btn-color">Learn more</a>
-              </div>
-            </div>
-            <div class="span4">
-              <div class="well box aligncenter">
-                <i class="icon-circled icon-48 icon-comment"></i>
-                <h3>Comment</h3>
-                <p>
-                Your opinion counts! But you have to make yourself heard first!
-                </p>
-                <a href="#" class="btn btn-color">Learn more</a>
-              </div>
-            </div>
-            <div class="span4">
-              <div class="well box aligncenter">
-                <i class="icon-circled icon-48 icon-globe"></i>
-                <h3>stay informed</h3>
-                <p>
-                See the most active topics as well as trending subjects every day!
-                </p>
-                <a href="#" class="btn btn-color">Learn more</a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-
-
-  <footer>
-    <div class="verybottom">
-      <div class="container">
-        <div class="row">
-          <div class="span12">
-            <div class="aligncenter">
-              <div class="logo">
-              <h2>Bloccit</h2>
-              </div>
-
-              </div>
-
-              <p>
-                &copy; LCWD - All right reserved
-              </p>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Javascript Library Files -->
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery.easing.js"></script>
-  <script src="js/bootstrap.js"></script>
-  <script src="js/jquery.lettering.js"></script>
-  <script src="js/parallax/jquery.parallax-1.1.3.js"></script>
-  <script src="js/nagging-menu.js"></script>
-  <script src="js/sequence.jquery-min.js"></script>
-  <script src="js/sequencejs-options.sliding-horizontal-parallax.js"></script>
-  <script src="js/portfolio/jquery.quicksand.js"></script>
-  <script src="js/portfolio/setting.js"></script>
-  <script src="js/jquery.scrollTo.js"></script>
-  <script src="js/jquery.nav.js"></script>
-  <script src="js/modernizr.custom.js"></script>
-  <script src="js/prettyPhoto/jquery.prettyPhoto.js"></script>
-  <script src="js/prettyPhoto/setting.js"></script>
-  <script src="js/jquery.flexslider.js"></script>
-
-  <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
-
-  <!-- Template Custom Javascript File -->
-  <script src="js/custom.js"></script>
-
-</body>
-
+     <% include ./partials/baseScripts.ejs %>
+    </body>
 </html>
